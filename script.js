@@ -1,86 +1,3 @@
-// ===== SYSTÈME MULTILINGUE =====
-let currentLanguage = localStorage.getItem('liora-language') || 'fr';
-
-// Fonction pour traduire la page
-function translatePage(lang) {
-    currentLanguage = lang;
-    localStorage.setItem('liora-language', lang);
-    
-    // Traduire tous les éléments avec data-i18n
-    document.querySelectorAll('[data-i18n]').forEach(element => {
-        const keys = element.getAttribute('data-i18n').split('.');
-        let translation = translations[lang];
-        
-        for (const key of keys) {
-            translation = translation[key];
-        }
-        
-        if (translation) {
-            element.textContent = translation;
-        }
-    });
-    
-    // Mettre à jour le sélecteur de langue
-    updateLanguageSelector(lang);
-    
-    // Mettre à jour l'attribut lang du HTML
-    document.documentElement.lang = lang;
-    
-    // Afficher une notification
-    showNotification(translations[lang].notifications.languageChanged);
-}
-
-// Mettre à jour l'affichage du sélecteur de langue
-function updateLanguageSelector(lang) {
-    const currentLang = document.getElementById('currentLang');
-    if (currentLang) {
-        currentLang.querySelector('.flag').textContent = languageFlags[lang];
-        currentLang.querySelector('.lang-code').textContent = lang.toUpperCase();
-    }
-    
-    // Marquer la langue active dans le dropdown
-    document.querySelectorAll('.language-dropdown li').forEach(li => {
-        li.classList.remove('active');
-        if (li.getAttribute('data-lang') === lang) {
-            li.classList.add('active');
-        }
-    });
-}
-
-// Initialiser la langue au chargement
-translatePage(currentLanguage);
-
-// ===== GESTION DU SÉLECTEUR DE LANGUE =====
-const currentLangBtn = document.getElementById('currentLang');
-const languageDropdown = document.getElementById('languageDropdown');
-const languageSelector = document.querySelector('.language-selector');
-
-if (currentLangBtn && languageDropdown) {
-    currentLangBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        languageSelector.classList.toggle('active');
-        languageDropdown.classList.toggle('active');
-    });
-    
-    // Sélection d'une langue
-    languageDropdown.querySelectorAll('li').forEach(li => {
-        li.addEventListener('click', function() {
-            const lang = this.getAttribute('data-lang');
-            translatePage(lang);
-            languageSelector.classList.remove('active');
-            languageDropdown.classList.remove('active');
-        });
-    });
-    
-    // Fermer le dropdown en cliquant ailleurs
-    document.addEventListener('click', function(e) {
-        if (!languageSelector.contains(e.target)) {
-            languageSelector.classList.remove('active');
-            languageDropdown.classList.remove('active');
-        }
-    });
-}
-
 // ===== MENU MOBILE =====
 const mobileMenuToggle = document.getElementById('mobileMenuToggle');
 const navLinks = document.getElementById('navLinks');
@@ -191,84 +108,6 @@ if (hero) {
     });
 }
 
-// ===== GESTION DES BOUTONS CTA =====
-const ctaButtons = document.querySelectorAll('.cta-button, .cta-white-button');
-ctaButtons.forEach(button => {
-    button.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Animation de clic
-        this.style.transform = 'scale(0.95)';
-        setTimeout(() => {
-            this.style.transform = '';
-        }, 150);
-        
-        // Afficher notification dans la langue actuelle
-        showNotification(translations[currentLanguage].notifications.comingSoon);
-    });
-});
-
-// ===== SYSTÈME DE NOTIFICATIONS =====
-function showNotification(message) {
-    const notification = document.createElement('div');
-    notification.textContent = message;
-    notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        background: linear-gradient(135deg, var(--pink-accent), #FF6B9D);
-        color: white;
-        padding: 20px 30px;
-        border-radius: 15px;
-        box-shadow: 0 5px 25px rgba(255, 143, 171, 0.4);
-        z-index: 10000;
-        animation: slideIn 0.5s ease-out;
-        font-weight: 600;
-        max-width: 300px;
-    `;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.style.animation = 'slideOut 0.5s ease-out';
-        setTimeout(() => {
-            notification.remove();
-        }, 500);
-    }, 3000);
-}
-
-// ===== STYLES POUR LES ANIMATIONS =====
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideIn {
-        from {
-            transform: translateX(400px);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-    
-    @keyframes slideOut {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(400px);
-            opacity: 0;
-        }
-    }
-    
-    @keyframes rainbow {
-        0% { filter: hue-rotate(0deg); }
-        100% { filter: hue-rotate(360deg); }
-    }
-`;
-document.head.appendChild(style);
-
 // ===== LOGO - RETOUR EN HAUT =====
 const logo = document.querySelector('.logo');
 if (logo) {
@@ -297,58 +136,67 @@ document.addEventListener('keydown', function(e) {
 });
 
 function activateEasterEgg() {
-    const messages = {
-        fr: '🎉 Code secret activé ! Vous avez découvert le mode licorne ! 🦄',
-        en: '🎉 Secret code activated! You discovered unicorn mode! 🦄',
-        es: '🎉 ¡Código secreto activado! ¡Has descubierto el modo unicornio! 🦄',
-        de: '🎉 Geheimcode aktiviert! Du hast den Einhorn-Modus entdeckt! 🦄',
-        it: '🎉 Codice segreto attivato! Hai scoperto la modalità unicorno! 🦄',
-        pt: '🎉 Código secreto ativado! Você descobriu o modo unicórnio! 🦄',
-        nl: '🎉 Geheime code geactiveerd! Je hebt de eenhoornmodus ontdekt! 🦄'
-    };
+    // Créer un overlay avec animation
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 143, 171, 0.9);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        animation: fadeIn 0.5s;
+    `;
     
-    showNotification(messages[currentLanguage] || messages['en']);
+    overlay.innerHTML = `
+        <div style="text-align: center; color: white;">
+            <div style="font-size: 80px; margin-bottom: 20px;">🦄✨</div>
+            <h2 style="font-size: 36px; margin-bottom: 10px;">Mode Licorne Activé !</h2>
+            <p style="font-size: 20px;">Vous avez découvert le secret de Liora 🎉</p>
+        </div>
+    `;
+    
+    document.body.appendChild(overlay);
     document.body.style.animation = 'rainbow 3s linear infinite';
     
     setTimeout(() => {
-        document.body.style.animation = '';
-    }, 5000);
+        overlay.style.animation = 'fadeOut 0.5s';
+        setTimeout(() => {
+            overlay.remove();
+            document.body.style.animation = '';
+        }, 500);
+    }, 3000);
 }
 
-// ===== DÉTECTION DE LA LANGUE DU NAVIGATEUR =====
-function detectBrowserLanguage() {
-    const browserLang = navigator.language || navigator.userLanguage;
-    const langCode = browserLang.split('-')[0];
-    
-    // Si la langue du navigateur est supportée et qu'aucune langue n'est sauvegardée
-    if (translations[langCode] && !localStorage.getItem('liora-language')) {
-        translatePage(langCode);
+// ===== STYLES POUR LES ANIMATIONS =====
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
     }
-}
-
-// Détecter la langue au chargement si première visite
-if (!localStorage.getItem('liora-language')) {
-    detectBrowserLanguage();
-}
+    
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+    }
+    
+    @keyframes rainbow {
+        0% { filter: hue-rotate(0deg); }
+        100% { filter: hue-rotate(360deg); }
+    }
+`;
+document.head.appendChild(style);
 
 // ===== CONSOLE MESSAGES POUR DÉVELOPPEURS =====
-const consoleMessages = {
-    fr: {
-        welcome: '🌟 Bienvenue sur Liora! 🌟',
-        recruiting: 'Vous êtes développeur ? Nous recrutons ! 💝',
-        contact: 'Contactez-nous: dev@liora.app'
-    },
-    en: {
-        welcome: '🌟 Welcome to Liora! 🌟',
-        recruiting: 'Are you a developer? We\'re hiring! 💝',
-        contact: 'Contact us: dev@liora.app'
-    }
-};
-
-const msg = consoleMessages[currentLanguage] || consoleMessages['en'];
-console.log(`%c${msg.welcome}`, 'color: #FF8FAB; font-size: 20px; font-weight: bold;');
-console.log(`%c${msg.recruiting}`, 'color: #FFB3C6; font-size: 14px;');
-console.log(`%c${msg.contact}`, 'color: #E8D5F2; font-size: 12px;');
+console.log('%c🌟 Bienvenue sur Liora! 🌟', 'color: #FF8FAB; font-size: 20px; font-weight: bold;');
+console.log('%cVous êtes développeur ? Nous recrutons ! 💝', 'color: #FFB3C6; font-size: 14px;');
+console.log('%cContactez-nous: dev@liora.app', 'color: #E8D5F2; font-size: 12px;');
 
 // ===== GESTION DES PERFORMANCES =====
 // Lazy loading des images (si vous en ajoutez)
@@ -371,43 +219,6 @@ if ('IntersectionObserver' in window) {
     });
 }
 
-// ===== PRÉCHARGEMENT DES POLICES ET RESSOURCES =====
-window.addEventListener('load', function() {
-    // Précharger les ressources critiques
-    const preloadLinks = [
-        // Ajoutez ici vos ressources à précharger
-    ];
-    
-    preloadLinks.forEach(href => {
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.href = href;
-        link.as = 'font';
-        link.crossOrigin = 'anonymous';
-        document.head.appendChild(link);
-    });
-});
-
-// ===== ANALYTICS - Prêt pour Google Analytics ou autre =====
-function trackEvent(category, action, label) {
-    // Placeholder pour l'intégration analytics
-    console.log('Event tracked:', { category, action, label, language: currentLanguage });
-    
-    // Si vous utilisez Google Analytics:
-    // gtag('event', action, {
-    //     'event_category': category,
-    //     'event_label': label,
-    //     'language': currentLanguage
-    // });
-}
-
-// Tracker les changements de langue
-const originalTranslatePage = translatePage;
-translatePage = function(lang) {
-    originalTranslatePage(lang);
-    trackEvent('Language', 'change', lang);
-};
-
 // ===== ACCESSIBILITÉ =====
 // Gestion du focus pour le clavier
 document.addEventListener('keydown', function(e) {
@@ -429,30 +240,3 @@ a11yStyle.textContent = `
     }
 `;
 document.head.appendChild(a11yStyle);
-
-// ===== DÉTECTION DE CONNEXION =====
-window.addEventListener('online', function() {
-    const messages = {
-        fr: '✅ Connexion rétablie',
-        en: '✅ Connection restored',
-        es: '✅ Conexión restablecida',
-        de: '✅ Verbindung wiederhergestellt',
-        it: '✅ Connessione ripristinata',
-        pt: '✅ Conexão restabelecida',
-        nl: '✅ Verbinding hersteld'
-    };
-    showNotification(messages[currentLanguage] || messages['en']);
-});
-
-window.addEventListener('offline', function() {
-    const messages = {
-        fr: '⚠️ Connexion perdue',
-        en: '⚠️ Connection lost',
-        es: '⚠️ Conexión perdida',
-        de: '⚠️ Verbindung verloren',
-        it: '⚠️ Connessione persa',
-        pt: '⚠️ Conexão perdida',
-        nl: '⚠️ Verbinding verloren'
-    };
-    showNotification(messages[currentLanguage] || messages['en']);
-});
