@@ -1,4 +1,87 @@
-// Mobile Menu Toggle
+// ===== SYSTÈME MULTILINGUE =====
+let currentLanguage = localStorage.getItem('liora-language') || 'fr';
+
+// Fonction pour traduire la page
+function translatePage(lang) {
+    currentLanguage = lang;
+    localStorage.setItem('liora-language', lang);
+    
+    // Traduire tous les éléments avec data-i18n
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        const keys = element.getAttribute('data-i18n').split('.');
+        let translation = translations[lang];
+        
+        for (const key of keys) {
+            translation = translation[key];
+        }
+        
+        if (translation) {
+            element.textContent = translation;
+        }
+    });
+    
+    // Mettre à jour le sélecteur de langue
+    updateLanguageSelector(lang);
+    
+    // Mettre à jour l'attribut lang du HTML
+    document.documentElement.lang = lang;
+    
+    // Afficher une notification
+    showNotification(translations[lang].notifications.languageChanged);
+}
+
+// Mettre à jour l'affichage du sélecteur de langue
+function updateLanguageSelector(lang) {
+    const currentLang = document.getElementById('currentLang');
+    if (currentLang) {
+        currentLang.querySelector('.flag').textContent = languageFlags[lang];
+        currentLang.querySelector('.lang-code').textContent = lang.toUpperCase();
+    }
+    
+    // Marquer la langue active dans le dropdown
+    document.querySelectorAll('.language-dropdown li').forEach(li => {
+        li.classList.remove('active');
+        if (li.getAttribute('data-lang') === lang) {
+            li.classList.add('active');
+        }
+    });
+}
+
+// Initialiser la langue au chargement
+translatePage(currentLanguage);
+
+// ===== GESTION DU SÉLECTEUR DE LANGUE =====
+const currentLangBtn = document.getElementById('currentLang');
+const languageDropdown = document.getElementById('languageDropdown');
+const languageSelector = document.querySelector('.language-selector');
+
+if (currentLangBtn && languageDropdown) {
+    currentLangBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        languageSelector.classList.toggle('active');
+        languageDropdown.classList.toggle('active');
+    });
+    
+    // Sélection d'une langue
+    languageDropdown.querySelectorAll('li').forEach(li => {
+        li.addEventListener('click', function() {
+            const lang = this.getAttribute('data-lang');
+            translatePage(lang);
+            languageSelector.classList.remove('active');
+            languageDropdown.classList.remove('active');
+        });
+    });
+    
+    // Fermer le dropdown en cliquant ailleurs
+    document.addEventListener('click', function(e) {
+        if (!languageSelector.contains(e.target)) {
+            languageSelector.classList.remove('active');
+            languageDropdown.classList.remove('active');
+        }
+    });
+}
+
+// ===== MENU MOBILE =====
 const mobileMenuToggle = document.getElementById('mobileMenuToggle');
 const navLinks = document.getElementById('navLinks');
 
@@ -6,7 +89,6 @@ if (mobileMenuToggle) {
     mobileMenuToggle.addEventListener('click', function() {
         navLinks.classList.toggle('active');
         
-        // Animate hamburger menu
         const spans = this.querySelectorAll('span');
         spans[0].style.transform = navLinks.classList.contains('active') 
             ? 'rotate(45deg) translate(5px, 5px)' 
@@ -18,7 +100,7 @@ if (mobileMenuToggle) {
     });
 }
 
-// Close mobile menu when clicking on a link
+// Fermer le menu mobile en cliquant sur un lien
 const navLinksItems = document.querySelectorAll('.nav-links a');
 navLinksItems.forEach(link => {
     link.addEventListener('click', () => {
@@ -32,7 +114,7 @@ navLinksItems.forEach(link => {
     });
 });
 
-// Header scroll effect
+// ===== HEADER SCROLL EFFECT =====
 const header = document.getElementById('header');
 let lastScroll = 0;
 
@@ -48,7 +130,7 @@ window.addEventListener('scroll', function() {
     lastScroll = currentScroll;
 });
 
-// Smooth scroll for anchor links
+// ===== SMOOTH SCROLL =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -67,7 +149,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Intersection Observer for feature cards animation
+// ===== INTERSECTION OBSERVER POUR ANIMATIONS =====
 const observerOptions = {
     threshold: 0.2,
     rootMargin: '0px 0px -100px 0px'
@@ -84,169 +166,18 @@ const observer = new IntersectionObserver(function(entries) {
     });
 }, observerOptions);
 
-// Observe all feature cards
+// Observer les cartes de fonctionnalités
 const featureCards = document.querySelectorAll('.feature-card');
 featureCards.forEach(card => {
     observer.observe(card);
 });
 
-// Observe value items
+// Observer les items de valeurs
 const valueItems = document.querySelectorAll('.value-item');
 valueItems.forEach(item => {
     observer.observe(item);
 });
 
-// Add parallax effect to hero section
+// ===== EFFET PARALLAX SUR HERO =====
 const hero = document.querySelector('.hero');
 if (hero) {
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const parallaxSpeed = 0.5;
-        
-        if (scrolled < hero.offsetHeight) {
-            hero.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
-        }
-    });
-}
-
-// Add cursor trail effect (optional - can be removed if too much)
-let cursorTrail = [];
-const maxTrailLength = 20;
-
-document.addEventListener('mousemove', function(e) {
-    if (window.innerWidth > 768) {
-        cursorTrail.push({ x: e.clientX, y: e.clientY });
-        
-        if (cursorTrail.length > maxTrailLength) {
-            cursorTrail.shift();
-        }
-    }
-});
-
-// CTA button click tracking (placeholder for analytics)
-const ctaButtons = document.querySelectorAll('.cta-button, .cta-white-button');
-ctaButtons.forEach(button => {
-    button.addEventListener('click', function(e) {
-        // Prevent default for demo purposes
-        e.preventDefault();
-        
-        // Add click animation
-        this.style.transform = 'scale(0.95)';
-        setTimeout(() => {
-            this.style.transform = '';
-        }, 150);
-        
-        // Here you would typically track the click with analytics
-        console.log('CTA clicked:', this.textContent);
-        
-        // Show a temporary message
-        showNotification('Merci de votre intérêt ! L\'application sera bientôt disponible. 💝');
-    });
-});
-
-// Notification system
-function showNotification(message) {
-    const notification = document.createElement('div');
-    notification.textContent = message;
-    notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        background: linear-gradient(135deg, var(--pink-accent), #FF6B9D);
-        color: white;
-        padding: 20px 30px;
-        border-radius: 15px;
-        box-shadow: 0 5px 25px rgba(255, 143, 171, 0.4);
-        z-index: 10000;
-        animation: slideIn 0.5s ease-out;
-        font-weight: 600;
-        max-width: 300px;
-    `;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.style.animation = 'slideOut 0.5s ease-out';
-        setTimeout(() => {
-            notification.remove();
-        }, 500);
-    }, 3000);
-}
-
-// Add CSS for notification animations
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideIn {
-        from {
-            transform: translateX(400px);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-    
-    @keyframes slideOut {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(400px);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(style);
-
-// Logo click - scroll to top
-const logo = document.querySelector('.logo');
-if (logo) {
-    logo.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-}
-
-// Easter egg - Konami code
-let konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-let konamiIndex = 0;
-
-document.addEventListener('keydown', function(e) {
-    if (e.key === konamiCode[konamiIndex]) {
-        konamiIndex++;
-        if (konamiIndex === konamiCode.length) {
-            activateEasterEgg();
-            konamiIndex = 0;
-        }
-    } else {
-        konamiIndex = 0;
-    }
-});
-
-function activateEasterEgg() {
-    showNotification('🎉 Code secret activé ! Vous avez découvert le mode licorne ! 🦄');
-    document.body.style.animation = 'rainbow 3s linear infinite';
-    
-    setTimeout(() => {
-        document.body.style.animation = '';
-    }, 5000);
-}
-
-// Add rainbow animation for easter egg
-const rainbowStyle = document.createElement('style');
-rainbowStyle.textContent = `
-    @keyframes rainbow {
-        0% { filter: hue-rotate(0deg); }
-        100% { filter: hue-rotate(360deg); }
-    }
-`;
-document.head.appendChild(rainbowStyle);
-
-// Console message for developers
-console.log('%c🌟 Bienvenue sur Liora! 🌟', 'color: #FF8FAB; font-size: 20px; font-weight: bold;');
-console.log('%cVous êtes développeur ? Nous recrutons ! 💝', 'color: #FFB3C6; font-size: 14px;');
-console.log('%cContactez-nous: dev@liora.app', 'color: #E8D5F2; font-size: 12px;');
