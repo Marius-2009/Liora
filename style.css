@@ -120,6 +120,101 @@ nav {
     color: var(--pink-accent);
 }
 
+/* Header Actions - Language Selector + CTA */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Language Selector */
+.language-selector {
+    position: relative;
+}
+
+.current-lang {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    border: 2px solid var(--pink-light);
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.current-lang:hover {
+    border-color: var(--pink-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 143, 171, 0.2);
+}
+
+.current-lang .flag {
+    font-size: 20px;
+}
+
+.current-lang .lang-code {
+    font-size: 14px;
+}
+
+.current-lang .arrow {
+    font-size: 10px;
+    transition: transform 0.3s;
+}
+
+.language-selector.active .arrow {
+    transform: rotate(180deg);
+}
+
+.language-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    list-style: none;
+    padding: 10px 0;
+    min-width: 180px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s;
+    z-index: 1001;
+}
+
+.language-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.language-dropdown li {
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+}
+
+.language-dropdown li:hover {
+    background: var(--pink-light);
+}
+
+.language-dropdown li.active {
+    background: linear-gradient(135deg, var(--pink-light), var(--purple-light));
+    color: var(--pink-accent);
+}
+
+.language-dropdown .flag {
+    font-size: 20px;
+}
+
 .cta-button {
     background: linear-gradient(135deg, var(--pink-accent), #FF6B9D);
     color: white;
@@ -130,6 +225,7 @@ nav {
     transition: transform 0.3s, box-shadow 0.3s;
     box-shadow: 0 4px 15px rgba(255, 143, 171, 0.3);
     display: inline-block;
+    white-space: nowrap;
 }
 
 .cta-button:hover {
@@ -445,7 +541,19 @@ footer {
         display: flex;
     }
 
-    nav .cta-button {
+    .header-actions {
+        gap: 10px;
+    }
+
+    .header-actions .cta-button {
+        display: none;
+    }
+
+    .current-lang {
+        padding: 6px 12px;
+    }
+
+    .current-lang .lang-code {
         display: none;
     }
 
