@@ -10,7 +10,7 @@
 <body>
     <header id="header">
         <nav class="container">
-            <div class="logo">✨ Liora</div>
+            <div class="logo">Liora</div>
             <button class="mobile-menu-toggle" id="mobileMenuToggle">
                 <span></span>
                 <span></span>
@@ -18,22 +18,178 @@
             </button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html#fonctionnalites">Fonctionnalités</a></li>
-                <li><a href="index.html#valeurs">Valeurs</a></li>
+                <li><a href="index.html#valeurs">À propos</a></li>
                 <li><a href="pricing.html">Tarifs</a></li>
-                <li><a href="notify.html">Être notifié</a></li>
+                <li><a href="notify.html">Nous rejoindre</a></li>
             </ul>
-            <a href="pricing.html" class="cta-button">Voir les tarifs</a>
+            <a href="pricing.html" class="cta-button">Découvrir</a>
         </nav>
     </header>
 
     <section class="hero" style="padding: 80px 0;">
         <div class="hero-content container" style="max-width: 700px;">
-            <a href="index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--pink-accent); text-decoration: none; font-weight: 600; margin-bottom: 30px; transition: transform 0.3s;">
+            <a href="index.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--primary); text-decoration: none; font-weight: 600; margin-bottom: 30px; transition: transform 0.3s; font-size: 14px;">
                 ← Retour à l'accueil
             </a>
-            <div style="font-size: 64px; margin-bottom: 20px;">🔔</div>
-            <h1 class="fade-in">Soyez informé en avant-première</h1>
-            <p class="fade-in delay-1">Inscrivez-vous à notre liste d'attente et soyez parmi les premiers à découvrir Liora dès son lancement.</p>
+            <h1 class="fade-in">Restez informé du lancement</h1>
+            <p class="fade-in delay-1">Inscrivez-vous pour recevoir une notification dès que Liora sera disponible et bénéficiez d'avantages exclusifs.</p>
+        </div>
+    </section>
+
+    <section style="padding: 60px 0; background: white;">
+        <div class="container" style="max-width: 600px;">
+            <div id="formContent">
+                <form id="waitlistForm" style="background: var(--light-bg); padding: 40px; border-radius: 12px; border: 1px solid var(--border);">
+                    
+                    <div style="margin-bottom: 25px;">
+                        <label style="display: block; color: var(--text-dark); font-weight: 600; margin-bottom: 8px; font-size: 14px;">
+                            Prénom *
+                        </label>
+                        <input type="text" id="firstName" name="firstName" placeholder="Votre prénom" required
+                               style="width: 100%; padding: 14px 16px; border: 2px solid var(--border); border-radius: 6px; font-size: 15px; font-family: inherit; transition: all 0.3s;">
+                    </div>
+
+                    <div style="margin-bottom: 25px;">
+                        <label style="display: block; color: var(--text-dark); font-weight: 600; margin-bottom: 8px; font-size: 14px;">
+                            Email *
+                        </label>
+                        <input type="email" id="email" name="email" placeholder="votre@email.com" required
+                               style="width: 100%; padding: 14px 16px; border: 2px solid var(--border); border-radius: 6px; font-size: 15px; font-family: inherit; transition: all 0.3s;">
+                    </div>
+
+                    <div style="margin-bottom: 25px;">
+                        <label style="display: block; color: var(--text-dark); font-weight: 600; margin-bottom: 8px; font-size: 14px;">
+                            Votre situation
+                        </label>
+                        <select id="situation" name="situation"
+                                style="width: 100%; padding: 14px 16px; border: 2px solid var(--border); border-radius: 6px; font-size: 15px; font-family: inherit; background: white;">
+                            <option value="">Sélectionnez...</option>
+                            <option value="separated">Parent séparé</option>
+                            <option value="divorced">Parent divorcé</option>
+                            <option value="together">Parents ensemble</option>
+                            <option value="single">Parent solo</option>
+                            <option value="other">Autre</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-bottom: 25px;">
+                        <label style="display: block; color: var(--text-dark); font-weight: 600; margin-bottom: 8px; font-size: 14px;">
+                            Nombre d'enfants (optionnel)
+                        </label>
+                        <input type="number" id="children" name="children" min="0" max="10" placeholder="Ex: 2"
+                               style="width: 100%; padding: 14px 16px; border: 2px solid var(--border); border-radius: 6px; font-size: 15px; font-family: inherit;">
+                    </div>
+
+                    <div style="margin: 25px 0;">
+                        <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 14px; color: var(--text-medium);">
+                            <input type="checkbox" name="newsletter" id="newsletter" style="width: 18px; height: 18px; cursor: pointer; margin-top: 2px;">
+                            <span>J'accepte de recevoir des informations sur la co-parentalité</span>
+                        </label>
+                    </div>
+
+                    <div style="margin: 25px 0;">
+                        <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 14px; color: var(--text-medium);">
+                            <input type="checkbox" name="privacy" id="privacy" required style="width: 18px; height: 18px; cursor: pointer; margin-top: 2px;">
+                            <span>J'accepte la <a href="#" style="color: var(--primary); text-decoration: none;">politique de confidentialité</a> *</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="cta-button" id="submitBtn" style="width: 100%; margin-top: 10px; text-align: center;">
+                        Rejoindre la liste d'attente
+                    </button>
+                </form>
+
+                <div style="margin-top: 50px; background: white; padding: 40px; border-radius: 12px; border: 1px solid var(--border);">
+                    <h3 style="font-size: 22px; color: var(--text-dark); margin-bottom: 20px; text-align: center; font-weight: 600;">Avantages de l'inscription</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 12px 0; color: var(--text-medium); display: flex; align-items: center; gap: 12px; font-size: 15px;">
+                            <span style="color: var(--primary); font-weight: 700; font-size: 20px;">✓</span>
+                            Accès anticipé à la plateforme
+                        </li>
+                        <li style="padding: 12px 0; color: var(--text-medium); display: flex; align-items: center; gap: 12px; font-size: 15px;">
+                            <span style="color: var(--primary); font-weight: 700; font-size: 20px;">✓</span>
+                            Réduction exclusive au lancement
+                        </li>
+                        <li style="padding: 12px 0; color: var(--text-medium); display: flex; align-items: center; gap: 12px; font-size: 15px;">
+                            <span style="color: var(--primary); font-weight: 700; font-size: 20px;">✓</span>
+                            Participation aux tests bêta
+                        </li>
+                        <li style="padding: 12px 0; color: var(--text-medium); display: flex; align-items: center; gap: 12px; font-size: 15px;">
+                            <span style="color: var(--primary); font-weight: 700; font-size: 20px;">✓</span>
+                            Documentation et guides exclusifs
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="successMessage" style="display: none; text-align: center; padding: 60px 40px; background: white; border-radius: 12px; border: 1px solid var(--border);">
+                <div style="font-size: 64px; margin-bottom: 20px;">✓</div>
+                <h2 style="font-size: 30px; color: var(--text-dark); margin-bottom: 15px; font-weight: 700;">Inscription confirmée</h2>
+                <p style="font-size: 17px; color: var(--text-medium); line-height: 1.6; margin-bottom: 30px;">
+                    Votre inscription a bien été enregistrée. Vous recevrez un email de confirmation dans quelques instants.
+                    <br><br>
+                    Nous vous tiendrons informé du lancement de Liora.
+                </p>
+
+                <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--border);">
+                    <p style="font-size: 14px; color: var(--text-light); margin-bottom: 15px;">Partagez Liora :</p>
+                    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                        <a href="#" onclick="shareTwitter(); return false;" style="padding: 10px 20px; background: #1DA1F2; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 13px;">
+                            Twitter
+                        </a>
+                        <a href="#" onclick="shareFacebook(); return false;" style="padding: 10px 20px; background: #4267B2; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 13px;">
+                            Facebook
+                        </a>
+                        <a href="#" onclick="shareLinkedIn(); return false;" style="padding: 10px 20px; background: #0077B5; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 13px;">
+                            LinkedIn
+                        </a>
+                    </div>
+                </div>
+
+                <a href="index.html" class="cta-button" style="margin-top: 40px; display: inline-block;">
+                    Retour à l'accueil
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Liora</h3>
+                    <p>Plateforme de gestion pour la co-parentalité</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Produit</h3>
+                    <ul>
+                        <li><a href="index.html#fonctionnalites">Fonctionnalités</a></li>
+                        <li><a href="pricing.html">Tarifs</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Centre d'aide</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Documentation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Légal</h3>
+                    <ul>
+                        <li><a href="#">Mentions légales</a></li>
+                        <li><a href="#">Confidentialité</a></li>
+                        <li><a href="#">CGU</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Liora. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer></p>
         </div>
     </section>
 
@@ -234,11 +390,11 @@
         const inputs = document.querySelectorAll('input, select');
         inputs.forEach(input => {
             input.addEventListener('focus', function() {
-                this.style.borderColor = 'var(--pink-accent)';
-                this.style.boxShadow = '0 0 0 3px rgba(255, 143, 171, 0.1)';
+                this.style.borderColor = 'var(--primary)';
+                this.style.boxShadow = '0 0 0 3px rgba(44, 62, 80, 0.1)';
             });
             input.addEventListener('blur', function() {
-                this.style.borderColor = 'var(--pink-light)';
+                this.style.borderColor = 'var(--border)';
                 this.style.boxShadow = 'none';
             });
         });
@@ -247,13 +403,13 @@
         const emailInput = document.getElementById('email');
         emailInput.addEventListener('blur', function() {
             if (this.value && !this.value.includes('@')) {
-                this.style.borderColor = '#FF6B6B';
+                this.style.borderColor = '#EF4444';
             }
         });
 
         // Fonctions de partage
         function shareTwitter() {
-            const text = "Je viens de m'inscrire à la liste d'attente de Liora, l'app qui simplifie la co-parentalité ! 💝";
+            const text = "Je viens de m'inscrire à Liora, la plateforme de gestion pour la co-parentalité.";
             const url = window.location.origin;
             window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
         }
