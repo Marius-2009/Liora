@@ -5,15 +5,17 @@
 }
 
 :root {
-    --primary: #2C3E50;
-    --secondary: #34495E;
-    --accent: #5D6D7E;
-    --light-bg: #F8F9FA;
+    --primary: #1E3A5F;
+    --secondary: #2C5282;
+    --accent: #4A90E2;
+    --light-accent: #E3F2FD;
+    --lighter-accent: #F0F7FF;
+    --light-bg: #F8FAFC;
     --lighter-bg: #FFFFFF;
-    --border: #E1E4E8;
-    --text-dark: #1A1A1A;
-    --text-medium: #4A4A4A;
-    --text-light: #6B7280;
+    --border: #E2E8F0;
+    --text-dark: #1A202C;
+    --text-medium: #4A5568;
+    --text-light: #718096;
     --success: #10B981;
 }
 
@@ -138,15 +140,45 @@ nav {
 .cta-button:hover {
     background: var(--secondary);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(44, 62, 80, 0.2);
+    box-shadow: 0 6px 20px rgba(74, 144, 226, 0.3);
 }
 
 /* Hero Section */
 .hero {
-    background: var(--light-bg);
+    background: linear-gradient(135deg, var(--lighter-accent) 0%, var(--light-bg) 100%);
     padding: 100px 0;
     text-align: center;
     position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(74, 144, 226, 0.08), transparent);
+    border-radius: 50%;
+    top: -200px;
+    right: -200px;
+    animation: float 6s ease-in-out infinite;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(30, 58, 95, 0.05), transparent);
+    border-radius: 50%;
+    bottom: -150px;
+    left: -150px;
+    animation: float 8s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
 }
 
 .hero-content {
@@ -194,8 +226,9 @@ nav {
 }
 
 .secondary-button:hover {
-    border-color: var(--primary);
-    background: var(--light-bg);
+    border-color: var(--accent);
+    background: var(--lighter-accent);
+    color: var(--primary);
 }
 
 /* Animations */
@@ -246,7 +279,7 @@ nav {
 }
 
 .feature-card {
-    background: var(--light-bg);
+    background: white;
     padding: 40px 32px;
     border-radius: 12px;
     text-align: left;
@@ -269,13 +302,20 @@ nav {
 
 .feature-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 12px 32px rgba(74, 144, 226, 0.15);
+    border-color: var(--accent);
 }
 
 .feature-icon {
     font-size: 40px;
     margin-bottom: 20px;
-    color: var(--primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    background: var(--light-accent);
+    border-radius: 12px;
 }
 
 .feature-card h3 {
@@ -294,7 +334,7 @@ nav {
 /* Values Section */
 .values {
     padding: 100px 0;
-    background: var(--light-bg);
+    background: linear-gradient(135deg, var(--lighter-accent) 0%, var(--light-bg) 100%);
 }
 
 .values-grid {
@@ -315,7 +355,8 @@ nav {
 
 .value-item:hover {
     transform: translateY(-6px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 12px 32px rgba(74, 144, 226, 0.12);
+    border-color: var(--accent);
 }
 
 .value-item h3 {
