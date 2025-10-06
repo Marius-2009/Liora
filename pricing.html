@@ -4,53 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarifs - Liora</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --pink-light: #FFE5EC;
-            --pink-medium: #FFB3C6;
-            --pink-accent: #FF8FAB;
-            --purple-light: #E8D5F2;
-            --white: #FFFFFF;
-            --text-dark: #2D2D2D;
-            --text-light: #6B6B6B;
-            --success: #4CAF50;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: var(--text-dark);
-            line-height: 1.6;
-            background: linear-gradient(135deg, var(--pink-light) 0%, var(--white) 50%, var(--purple-light) 100%);
-            min-height: 100vh;
-            padding: 40px 20px;
+            background: var(--light-bg);
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Header */
         .pricing-header {
             text-align: center;
-            margin-bottom: 60px;
+            padding: 80px 20px 40px;
+            background: white;
         }
 
         .back-link {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            color: var(--pink-accent);
+            color: var(--primary);
             text-decoration: none;
             font-weight: 600;
             margin-bottom: 30px;
             transition: transform 0.3s;
+            font-size: 14px;
         }
 
         .back-link:hover {
@@ -58,153 +33,97 @@
         }
 
         .pricing-header h1 {
-            font-size: 48px;
-            background: linear-gradient(135deg, var(--pink-accent), #C77DFF);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 20px;
+            font-size: 42px;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            font-weight: 700;
         }
 
         .pricing-header p {
-            font-size: 20px;
-            color: var(--text-light);
+            font-size: 18px;
+            color: var(--text-medium);
             max-width: 600px;
             margin: 0 auto;
         }
 
-        /* Toggle mensuel/annuel */
-        .billing-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin: 40px 0;
-            background: white;
-            padding: 8px;
-            border-radius: 50px;
-            display: inline-flex;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .billing-option {
-            padding: 12px 30px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-        }
-
-        .billing-option.active {
-            background: linear-gradient(135deg, var(--pink-accent), #FF6B9D);
-            color: white;
-        }
-
-        .billing-option:not(.active) {
-            color: var(--text-light);
-        }
-
-        .billing-option:not(.active):hover {
-            color: var(--pink-accent);
-        }
-
-        .save-badge {
-            background: var(--success);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        /* Pricing Cards */
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
+            gap: 32px;
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .pricing-card {
             background: white;
-            border-radius: 25px;
-            padding: 40px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            position: relative;
-            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 40px 32px;
+            transition: all 0.3s;
             display: flex;
             flex-direction: column;
         }
 
         .pricing-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 50px rgba(255, 143, 171, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+            border-color: var(--primary);
         }
 
         .pricing-card.popular {
-            border: 3px solid var(--pink-accent);
-            transform: scale(1.05);
-        }
-
-        .pricing-card.popular:hover {
-            transform: scale(1.05) translateY(-10px);
+            border-color: var(--primary);
+            border-width: 3px;
+            position: relative;
         }
 
         .badge {
             position: absolute;
-            top: -15px;
+            top: -12px;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(135deg, var(--pink-accent), #FF6B9D);
+            background: var(--primary);
             color: white;
-            padding: 8px 25px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(255, 143, 171, 0.4);
-        }
-
-        .lifetime-badge {
-            background: linear-gradient(135deg, #FFD700, #FFA500);
-        }
-
-        .plan-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
+            padding: 6px 20px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
 
         .plan-name {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
             color: var(--text-dark);
         }
 
         .plan-description {
             color: var(--text-light);
-            margin-bottom: 25px;
-            font-size: 15px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            line-height: 1.6;
         }
 
         .price-container {
-            margin-bottom: 30px;
+            margin-bottom: 32px;
         }
 
         .price {
-            font-size: 52px;
-            font-weight: bold;
-            color: var(--pink-accent);
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text-dark);
             line-height: 1;
         }
 
         .price-period {
-            font-size: 18px;
+            font-size: 16px;
             color: var(--text-light);
-            font-weight: normal;
+            font-weight: 500;
         }
 
         .price-note {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-light);
             margin-top: 8px;
         }
@@ -212,51 +131,54 @@
         .original-price {
             text-decoration: line-through;
             color: var(--text-light);
-            font-size: 24px;
-            margin-right: 10px;
+            font-size: 20px;
+            margin-right: 8px;
         }
 
         .discount-badge {
             background: var(--success);
             color: white;
-            padding: 4px 10px;
-            border-radius: 15px;
+            padding: 3px 10px;
+            border-radius: 4px;
             font-size: 12px;
-            font-weight: bold;
+            font-weight: 700;
             display: inline-block;
-            margin-left: 10px;
+            margin-left: 8px;
         }
 
         .trial-badge {
-            background: var(--purple-light);
-            color: var(--pink-accent);
-            padding: 8px 15px;
-            border-radius: 20px;
+            background: var(--light-bg);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 6px;
             font-size: 13px;
             font-weight: 600;
             display: inline-block;
             margin-bottom: 20px;
+            border: 1px solid var(--border);
         }
 
         .features-list {
             list-style: none;
-            margin-bottom: 30px;
+            margin-bottom: 32px;
             flex-grow: 1;
         }
 
         .features-list li {
-            padding: 12px 0;
+            padding: 10px 0;
             display: flex;
             align-items: flex-start;
             gap: 12px;
-            color: var(--text-dark);
+            color: var(--text-medium);
+            font-size: 14px;
+            line-height: 1.6;
         }
 
         .features-list li::before {
             content: "✓";
-            color: var(--pink-accent);
-            font-weight: bold;
-            font-size: 20px;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 18px;
             flex-shrink: 0;
         }
 
@@ -266,61 +188,65 @@
         }
 
         .features-list li.disabled::before {
-            content: "✗";
+            content: "−";
             color: var(--text-light);
         }
 
-        .cta-button {
-            background: linear-gradient(135deg, var(--pink-accent), #FF6B9D);
+        .cta-button-card {
+            background: var(--primary);
             color: white;
-            padding: 16px 40px;
-            border-radius: 30px;
+            padding: 14px 32px;
+            border-radius: 6px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 15px;
             text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 15px rgba(255, 143, 171, 0.3);
+            transition: all 0.3s;
             display: block;
-            cursor: pointer;
             border: none;
+            cursor: pointer;
         }
 
-        .cta-button:hover {
+        .cta-button-card:hover {
+            background: var(--secondary);
             transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(255, 143, 171, 0.4);
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.2);
         }
 
-        .cta-button.secondary {
+        .cta-button-card.secondary {
             background: white;
-            color: var(--pink-accent);
-            border: 2px solid var(--pink-accent);
+            color: var(--primary);
+            border: 2px solid var(--border);
         }
 
-        .cta-button.secondary:hover {
-            background: var(--pink-light);
+        .cta-button-card.secondary:hover {
+            border-color: var(--primary);
+            background: var(--light-bg);
         }
 
-        /* FAQ Section */
         .faq-section {
-            margin-top: 80px;
+            margin-top: 60px;
             background: white;
             padding: 60px 40px;
-            border-radius: 25px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid var(--border);
         }
 
         .faq-section h2 {
             text-align: center;
-            font-size: 36px;
+            font-size: 32px;
             margin-bottom: 40px;
             color: var(--text-dark);
+            font-weight: 700;
         }
 
         .faq-item {
-            margin-bottom: 25px;
-            border-bottom: 1px solid var(--pink-light);
-            padding-bottom: 25px;
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border);
         }
 
         .faq-item:last-child {
@@ -328,560 +254,205 @@
         }
 
         .faq-question {
-            font-size: 20px;
+            font-size: 17px;
             font-weight: 600;
-            color: var(--pink-accent);
-            margin-bottom: 10px;
+            color: var(--text-dark);
+            margin-bottom: 8px;
         }
 
         .faq-answer {
-            color: var(--text-light);
-            line-height: 1.8;
+            color: var(--text-medium);
+            line-height: 1.7;
+            font-size: 15px;
         }
 
-        /* Responsive Design */
-        
-        /* Tablettes (769px - 1024px) */
-        @media (max-width: 1024px) {
-            .pricing-header h1 {
-                font-size: 42px;
-            }
-
-            .pricing-grid {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 25px;
-            }
-
-            .pricing-card.popular {
-                transform: scale(1);
-            }
-
-            .pricing-card.popular:hover {
-                transform: translateY(-10px);
-            }
-        }
-
-        /* Tablettes et mobiles (481px - 768px) */
         @media (max-width: 768px) {
-            body {
-                padding: 20px 10px;
-            }
-
-            .pricing-header {
-                margin-bottom: 40px;
-            }
-
             .pricing-header h1 {
-                font-size: 36px;
-            }
-
-            .pricing-header p {
-                font-size: 18px;
-                padding: 0 10px;
-            }
-
-            .back-link {
-                font-size: 14px;
-            }
-
-            .billing-toggle {
-                flex-direction: column;
-                padding: 10px;
-                gap: 10px;
-                width: 100%;
-                max-width: 300px;
-                margin: 30px auto;
-            }
-
-            .billing-option {
-                width: 100%;
-                text-align: center;
+                font-size: 32px;
             }
 
             .pricing-grid {
                 grid-template-columns: 1fr;
-                gap: 30px;
-                margin-top: 30px;
-            }
-
-            .pricing-card {
-                padding: 30px 20px;
+                padding: 40px 20px;
             }
 
             .pricing-card.popular {
-                transform: scale(1);
                 border-width: 2px;
-            }
-
-            .badge {
-                font-size: 12px;
-                padding: 6px 20px;
-            }
-
-            .plan-name {
-                font-size: 24px;
-            }
-
-            .plan-description {
-                font-size: 14px;
-            }
-
-            .price {
-                font-size: 42px;
-            }
-
-            .price-period {
-                font-size: 16px;
-            }
-
-            .price-note {
-                font-size: 13px;
-            }
-
-            .features-list li {
-                font-size: 14px;
-                padding: 10px 0;
-            }
-
-            .cta-button {
-                padding: 14px 30px;
-                font-size: 15px;
             }
 
             .faq-section {
                 padding: 40px 20px;
-                margin-top: 60px;
-            }
-
-            .faq-section h2 {
-                font-size: 28px;
-                margin-bottom: 30px;
-            }
-
-            .faq-question {
-                font-size: 18px;
-            }
-
-            .faq-answer {
-                font-size: 15px;
-            }
-        }
-
-        /* Petits mobiles (320px - 480px) */
-        @media (max-width: 480px) {
-            body {
-                padding: 15px 5px;
-            }
-
-            .container {
-                padding: 0 10px;
-            }
-
-            .pricing-header {
-                margin-bottom: 30px;
-            }
-
-            .pricing-header h1 {
-                font-size: 28px;
-                line-height: 1.2;
-            }
-
-            .pricing-header p {
-                font-size: 16px;
-            }
-
-            .back-link {
-                font-size: 13px;
-                margin-bottom: 20px;
-            }
-
-            .billing-toggle {
-                max-width: 100%;
-            }
-
-            .pricing-card {
-                padding: 25px 15px;
-                border-radius: 20px;
-            }
-
-            .badge {
-                font-size: 11px;
-                padding: 5px 15px;
-                top: -12px;
-            }
-
-            .plan-icon {
-                font-size: 40px;
-                margin-bottom: 15px;
-            }
-
-            .plan-name {
-                font-size: 22px;
-            }
-
-            .plan-description {
-                font-size: 13px;
-                margin-bottom: 20px;
-            }
-
-            .trial-badge {
-                font-size: 12px;
-                padding: 6px 12px;
-                margin-bottom: 15px;
-            }
-
-            .price-container {
-                margin-bottom: 25px;
-            }
-
-            .price {
-                font-size: 38px;
-            }
-
-            .price-period {
-                font-size: 14px;
-            }
-
-            .original-price {
-                font-size: 20px;
-            }
-
-            .discount-badge {
-                font-size: 11px;
-                padding: 3px 8px;
-            }
-
-            .price-note {
-                font-size: 12px;
-            }
-
-            .features-list {
-                margin-bottom: 25px;
-            }
-
-            .features-list li {
-                font-size: 13px;
-                padding: 8px 0;
-                gap: 10px;
-            }
-
-            .features-list li::before {
-                font-size: 18px;
-            }
-
-            .cta-button {
-                padding: 12px 25px;
-                font-size: 14px;
-            }
-
-            .faq-section {
-                padding: 30px 15px;
                 margin-top: 40px;
-                border-radius: 20px;
             }
 
             .faq-section h2 {
-                font-size: 24px;
-                margin-bottom: 25px;
-            }
-
-            .faq-item {
-                margin-bottom: 20px;
-                padding-bottom: 20px;
-            }
-
-            .faq-question {
-                font-size: 16px;
-                margin-bottom: 8px;
-            }
-
-            .faq-answer {
-                font-size: 14px;
-                line-height: 1.6;
-            }
-        }
-
-        /* Très petits écrans (moins de 360px) */
-        @media (max-width: 360px) {
-            .pricing-header h1 {
-                font-size: 24px;
-            }
-
-            .plan-name {
-                font-size: 20px;
-            }
-
-            .price {
-                font-size: 32px;
-            }
-
-            .features-list li {
-                font-size: 12px;
-            }
-
-            .cta-button {
-                font-size: 13px;
-                padding: 10px 20px;
-            }
-        }
-
-        /* Mode paysage mobile */
-        @media (max-height: 600px) and (orientation: landscape) {
-            body {
-                padding: 20px 10px;
-            }
-
-            .pricing-header {
-                margin-bottom: 30px;
-            }
-
-            .pricing-header h1 {
-                font-size: 32px;
-            }
-
-            .pricing-card {
-                padding: 20px;
-            }
-
-            .features-list li {
-                padding: 6px 0;
-            }
-
-            .faq-section {
-                margin-top: 40px;
-                padding: 30px 20px;
-            }
-        }
-
-        /* Très grands écrans (1440px+) */
-        @media (min-width: 1440px) {
-            .container {
-                max-width: 1400px;
-            }
-
-            .pricing-header h1 {
-                font-size: 56px;
-            }
-
-            .pricing-header p {
-                font-size: 22px;
-                max-width: 700px;
-            }
-
-            .pricing-grid {
-                gap: 40px;
-            }
-
-            .pricing-card {
-                padding: 50px;
-            }
-
-            .faq-section {
-                padding: 80px 60px;
-            }
-
-            .faq-section h2 {
-                font-size: 42px;
+                font-size: 26px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="pricing-header">
+    <div class="pricing-header">
+        <div class="container">
             <a href="index.html" class="back-link">← Retour à l'accueil</a>
             <h1>Choisissez votre formule</h1>
-            <p>Des tarifs simples et transparents pour toutes les familles</p>
+            <p>Des tarifs transparents adaptés à tous les besoins</p>
+        </div>
+    </div>
+
+    <div class="pricing-grid">
+        <!-- FREE -->
+        <div class="pricing-card">
+            <h3 class="plan-name">Gratuit</h3>
+            <p class="plan-description">Pour découvrir la plateforme</p>
+            
+            <div class="price-container">
+                <div class="price">0€<span class="price-period">/mois</span></div>
+                <p class="price-note">Gratuit à vie</p>
+            </div>
+
+            <ul class="features-list">
+                <li>1 enfant maximum</li>
+                <li>Calendrier basique</li>
+                <li>30 documents maximum</li>
+                <li>Gestion des dépenses simple</li>
+                <li>Notifications par email</li>
+                <li class="disabled">Statistiques avancées</li>
+                <li class="disabled">Support prioritaire</li>
+            </ul>
+
+            <button class="cta-button-card secondary">Commencer gratuitement</button>
         </div>
 
-        <div class="pricing-grid">
-            <!-- FREE Plan -->
-            <div class="pricing-card">
-                <div class="plan-icon">🌱</div>
-                <h3 class="plan-name">Free</h3>
-                <p class="plan-description">Pour découvrir Liora sans engagement</p>
-                
-                <div class="price-container">
-                    <div class="price">0€<span class="price-period">/mois</span></div>
-                    <p class="price-note">Gratuit pour toujours</p>
-                </div>
-
-                <ul class="features-list">
-                    <li>1 enfant maximum</li>
-                    <li>Calendrier basique partagé</li>
-                    <li>30 documents maximum</li>
-                    <li>Gestion des dépenses simple</li>
-                    <li>Notifications par email</li>
-                    <li class="disabled">Statistiques avancées</li>
-                    <li class="disabled">Support prioritaire</li>
-                </ul>
-
-                <button class="cta-button secondary">Commencer gratuitement</button>
+        <!-- PREMIUM -->
+        <div class="pricing-card popular">
+            <div class="badge">Le plus populaire</div>
+            <h3 class="plan-name">Premium</h3>
+            <p class="plan-description">Pour une gestion complète</p>
+            
+            <div class="trial-badge">Essai gratuit 14 jours</div>
+            
+            <div class="price-container">
+                <div class="price">3,99€<span class="price-period">/mois</span></div>
+                <p class="price-note">Par parent · Facturation mensuelle</p>
             </div>
 
-            <!-- PREMIUM Plan -->
-            <div class="pricing-card popular">
-                <div class="badge">✨ Le plus populaire</div>
-                <div class="plan-icon">⭐</div>
-                <h3 class="plan-name">Premium</h3>
-                <p class="plan-description">L'essentiel pour s'organiser sereinement</p>
-                
-                <div class="trial-badge">🎁 14 jours d'essai gratuit</div>
-                
-                <div class="price-container">
-                    <div class="price">3,99€<span class="price-period">/mois</span></div>
-                    <p class="price-note">Par parent • Facturé mensuellement</p>
-                </div>
+            <ul class="features-list">
+                <li>Enfants illimités</li>
+                <li>Calendrier avancé avec rappels</li>
+                <li>Documents illimités</li>
+                <li>Statistiques et rapports</li>
+                <li>Notifications push</li>
+                <li>Export PDF</li>
+                <li>Support prioritaire</li>
+                <li>Sans publicité</li>
+            </ul>
 
-                <ul class="features-list">
-                    <li>Enfants illimités</li>
-                    <li>Calendrier avancé avec rappels</li>
-                    <li>Documents illimités avec tags</li>
-                    <li>Statistiques et graphiques</li>
-                    <li>Notifications push intelligentes</li>
-                    <li>Export PDF des données</li>
-                    <li>Support prioritaire</li>
-                    <li>Sans publicité</li>
-                </ul>
-
-                <button class="cta-button">Essayer 14 jours gratuits</button>
-            </div>
-
-            <!-- LIFETIME Plan -->
-            <div class="pricing-card">
-                <div class="badge lifetime-badge">🏆 Meilleure valeur</div>
-                <div class="plan-icon">💎</div>
-                <h3 class="plan-name">Lifetime</h3>
-                <p class="plan-description">Accès à vie, un seul paiement</p>
-                
-                <div class="price-container">
-                    <span class="original-price">141€</span>
-                    <span class="discount-badge">-30% 🎉</span>
-                    <div class="price">99€<span class="price-period"> une fois</span></div>
-                    <p class="price-note">Prix de lancement • Par parent</p>
-                </div>
-
-                <ul class="features-list">
-                    <li>Tout Premium inclus</li>
-                    <li>Accès à vie (jamais de renouvellement)</li>
-                    <li>Toutes les futures mises à jour</li>
-                    <li>Badge "Early Supporter" 🌟</li>
-                    <li>Support VIP prioritaire</li>
-                    <li>Accès anticipé aux nouvelles fonctions</li>
-                    <li>Partage famille élargie (6 comptes)</li>
-                </ul>
-
-                <button class="cta-button">Obtenir l'accès à vie</button>
-            </div>
+            <button class="cta-button-card">Essayer 14 jours gratuits</button>
         </div>
 
-        <!-- FAQ Section -->
+        <!-- LIFETIME -->
+        <div class="pricing-card">
+            <h3 class="plan-name">Lifetime</h3>
+            <p class="plan-description">Accès à vie, un seul paiement</p>
+            
+            <div class="price-container">
+                <span class="original-price">141€</span>
+                <span class="discount-badge">-30%</span>
+                <div class="price">99€<span class="price-period"> une fois</span></div>
+                <p class="price-note">Offre de lancement · Par parent</p>
+            </div>
+
+            <ul class="features-list">
+                <li>Tout Premium inclus</li>
+                <li>Accès à vie garanti</li>
+                <li>Mises à jour incluses</li>
+                <li>Badge Early Supporter</li>
+                <li>Support VIP</li>
+                <li>Accès anticipé aux nouveautés</li>
+                <li>Partage famille élargie (6 comptes)</li>
+            </ul>
+
+            <button class="cta-button-card">Obtenir l'accès à vie</button>
+        </div>
+    </div>
+
+    <div class="container">
         <div class="faq-section">
             <h2>Questions fréquentes</h2>
             
             <div class="faq-item">
-                <div class="faq-question">💳 Comment fonctionne le paiement "par parent" ?</div>
+                <div class="faq-question">Comment fonctionne le paiement "par parent" ?</div>
                 <div class="faq-answer">
-                    Chaque parent paie son propre abonnement (3,99€/mois). Vous partagez ensuite l'accès au même compte Liora. C'est équitable et transparent ! Vous pouvez aussi choisir qu'un seul parent paie si vous préférez.
+                    Chaque parent souscrit son propre abonnement Premium (3,99€/mois) et accède au même compte partagé. Cette approche garantit l'équité et l'indépendance de chacun.
                 </div>
             </div>
 
             <div class="faq-item">
-                <div class="faq-question">🎁 L'essai gratuit de 14 jours est-il vraiment gratuit ?</div>
+                <div class="faq-question">L'essai gratuit nécessite-t-il une carte bancaire ?</div>
                 <div class="faq-answer">
-                    Oui ! Aucune carte bancaire n'est demandée pendant l'essai. Vous avez 14 jours pour tester toutes les fonctionnalités Premium. À la fin, vous décidez si vous voulez continuer ou rester sur la version gratuite.
+                    Non. L'essai de 14 jours est totalement gratuit et ne nécessite aucun moyen de paiement. À la fin de l'essai, vous décidez de passer à Premium ou de revenir à la version gratuite.
                 </div>
             </div>
 
             <div class="faq-item">
-                <div class="faq-question">💎 Le Lifetime est-il vraiment à vie ?</div>
+                <div class="faq-question">Le Lifetime est-il vraiment à vie ?</div>
                 <div class="faq-answer">
-                    Absolument ! Un seul paiement de 99€ (prix de lancement) et vous avez accès à toutes les fonctionnalités Premium pour toujours, sans aucun renouvellement. Toutes les futures mises à jour sont incluses.
+                    Oui. Un paiement unique de 99€ vous garantit un accès permanent à toutes les fonctionnalités Premium, sans renouvellement ni frais cachés. Toutes les futures mises à jour sont incluses.
                 </div>
             </div>
 
             <div class="faq-item">
-                <div class="faq-question">🔄 Puis-je changer de formule à tout moment ?</div>
+                <div class="faq-question">Puis-je changer de formule ?</div>
                 <div class="faq-answer">
-                    Oui ! Vous pouvez passer de Free à Premium ou acheter le Lifetime quand vous voulez. Si vous passez de Premium à Free, vous ne perdez aucune donnée, mais certaines fonctionnalités avancées seront désactivées.
+                    Oui, vous pouvez modifier votre abonnement à tout moment. Le passage de Gratuit à Premium est immédiat. Vos données sont toujours conservées, seules les fonctionnalités avancées sont désactivées en version gratuite.
                 </div>
             </div>
 
             <div class="faq-item">
-                <div class="faq-question">🔒 Mes données sont-elles sécurisées ?</div>
+                <div class="faq-question">Mes données sont-elles sécurisées ?</div>
                 <div class="faq-answer">
-                    Oui ! Toutes vos données sont chiffrées et stockées en toute sécurité. Nous ne vendons jamais vos informations à des tiers. Vos documents et informations familiales restent 100% privés.
+                    Absolument. Toutes vos données sont chiffrées et stockées conformément au RGPD. Nous ne vendons jamais vos informations à des tiers. Vos documents et informations familiales restent strictement confidentiels.
                 </div>
             </div>
 
             <div class="faq-item">
-                <div class="faq-question">❌ Puis-je annuler mon abonnement ?</div>
+                <div class="faq-question">Puis-je annuler mon abonnement ?</div>
                 <div class="faq-answer">
-                    Bien sûr ! Vous pouvez annuler à tout moment depuis votre compte. Aucune question posée, aucun frais cachés. Votre abonnement reste actif jusqu'à la fin de la période déjà payée, puis vous revenez automatiquement sur la version gratuite.
+                    Oui, l'annulation est possible à tout moment depuis votre compte, sans frais ni justification. Votre abonnement reste actif jusqu'à la fin de la période payée, puis vous basculez automatiquement en version gratuite.
                 </div>
             </div>
 
             <div class="faq-item">
-                <div class="faq-question">👨‍👩‍👧‍👦 Combien d'enfants puis-je ajouter ?</div>
+                <div class="faq-question">Combien d'enfants puis-je gérer ?</div>
                 <div class="faq-answer">
-                    En version Free : 1 enfant. En Premium et Lifetime : enfants illimités ! Gérez toute votre famille au même endroit, quel que soit le nombre d'enfants.
+                    Version Gratuite : 1 enfant. Versions Premium et Lifetime : nombre d'enfants illimité. Gérez toute votre famille depuis une seule interface.
                 </div>
             </div>
 
             <div class="faq-item">
-                <div class="faq-question">💰 Le prix de 99€ Lifetime va augmenter ?</div>
+                <div class="faq-question">Le prix Lifetime va-t-il augmenter ?</div>
                 <div class="faq-answer">
-                    Oui, c'est un prix de lancement exceptionnel avec -30% de réduction. Le prix normal sera de 141€. Profitez-en maintenant pour bénéficier de ce tarif avantageux à vie !
+                    Oui. Le tarif actuel de 99€ est une offre de lancement exceptionnelle (-30%). Le prix normal sera de 141€. Nous recommandons de profiter de cette offre tant qu'elle est disponible.
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="script.js"></script>
     <script>
-        // Animation des cartes au scroll
-        const cards = document.querySelectorAll('.pricing-card');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
-
-        cards.forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = 'opacity 0.6s, transform 0.6s';
-            observer.observe(card);
-        });
-
-        // Gestion des clics sur les boutons
-        document.querySelectorAll('.cta-button').forEach(button => {
+        document.querySelectorAll('.cta-button-card').forEach(button => {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
                 
                 const planName = this.closest('.pricing-card').querySelector('.plan-name').textContent;
                 
-                // Animation du bouton
                 this.style.transform = 'scale(0.95)';
                 setTimeout(() => {
                     this.style.transform = '';
                 }, 150);
                 
-                // Message de confirmation
-                alert(`🎉 Excellent choix ! Vous avez sélectionné le plan ${planName}.\n\nDans une vraie application, vous seriez redirigé vers le processus de paiement.`);
-            });
-        });
-
-        // Animation FAQ
-        const faqItems = document.querySelectorAll('.faq-item');
-        faqItems.forEach(item => {
-            item.addEventListener('click', function() {
-                this.style.backgroundColor = 'var(--pink-light)';
-                setTimeout(() => {
-                    this.style.backgroundColor = '';
-                }, 300);
+                alert(`Plan sélectionné : ${planName}\n\nVous seriez redirigé vers le processus de paiement dans une application réelle.`);
             });
         });
     </script>
