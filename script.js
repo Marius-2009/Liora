@@ -240,3 +240,4 @@ a11yStyle.textContent = `
     }
 `;
 document.head.appendChild(a11yStyle);
+
