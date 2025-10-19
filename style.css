@@ -508,6 +508,14 @@ footer {
 
 /* Petites tablettes et grands mobiles (481px - 768px) */
 @media (max-width: 768px) {
+    .logo img {
+        height: 24px;
+    }
+
+    .logo span {
+        font-size: 22px;
+    }
+    
     .mobile-menu-toggle {
         display: flex;
         z-index: 1001;
