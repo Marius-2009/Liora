@@ -60,13 +60,23 @@ nav {
     align-items: center;
 }
 
+
+
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     font-size: 28px;
     font-weight: 700;
     color: var(--primary);
     cursor: pointer;
     transition: transform 0.3s;
     letter-spacing: -0.5px;
+}
+
+.logo img {
+    height: 32px;
+    width: auto;
 }
 
 .logo:hover {
@@ -804,3 +814,4 @@ footer {
         padding: 50px 0;
     }
 }
+
